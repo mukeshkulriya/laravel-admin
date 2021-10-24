@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
+Route::get('admin/userAdd', [AdminController::class, 'add']);
+
+
+Route::get('admin', function () {
+    return redirect('/admin/dashboard');
 });
