@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
-Route::get('admin/userAdd', [AdminController::class, 'add']);
+Route::get('admin/userAdd', [UserController::class, 'showUserAdd'])->name('userAdd');;
 
 
 Route::get('admin', function () {

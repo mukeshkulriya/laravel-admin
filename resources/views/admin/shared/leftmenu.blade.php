@@ -46,8 +46,8 @@
 
                 </li>
                 {{-- Manage Users --}}
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item {{ Request::routeIs('userAdd') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::routeIs('userAdd') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Manage Users
@@ -62,7 +62,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index2.html" class="nav-link">
+                            <a href="{{ route('userAdd') }}"
+                                class="nav-link {{ Request::routeIs('userAdd') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Users Add</p>
                             </a>
