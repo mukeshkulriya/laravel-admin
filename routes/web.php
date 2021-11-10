@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\UserController;
+// use App\Http\Controllers\RegisteredUserController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +20,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
-Route::get('admin/userAdd', [UserController::class, 'showUserAdd'])->name('userAdd');;
+// Route::get('admin/userAdd', [UserController::class, 'showUserAdd'])->name('userAdd');;
 
 
 Route::get('admin', function () {
     return redirect('/admin/dashboard');
+});
+// Route::resource('admin/users', 'RegisteredUserController', ['as' => 'adminUsers']);
+
+Route::prefix('admin/')->group(function () {
+    Route::resource('users', 'RegisteredUserController');
 });

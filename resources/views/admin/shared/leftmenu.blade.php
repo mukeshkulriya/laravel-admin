@@ -46,8 +46,8 @@
 
                 </li>
                 {{-- Manage Users --}}
-                <li class="nav-item {{ Request::routeIs('userAdd') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::routeIs('userAdd') ? 'active' : '' }}">
+                {{-- <li class="nav-item {{ Request::routeIs('adminUsers.create') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::routeIs('adminUsers.create') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Manage Users
@@ -62,8 +62,35 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('userAdd') }}"
-                                class="nav-link {{ Request::routeIs('userAdd') ? 'active' : '' }}">
+                            <a href="{{ route('users/create') }}"
+                                class="nav-link {{ Request::routeIs('users/create') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Users Add</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li> --}}
+                {{-- /.Manage Users --}}
+                {{-- Manage Users --}}
+                <li class="nav-item  {{ Request::is('admin/users*') ? 'menu-open' : '' }}">
+                    <a href=" #" class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Manage Users
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('users.index') }}"
+                                class="nav-link {{ Request::is('admin/users') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Users</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('users.create') }}"
+                                class="nav-link {{ Request::is('admin/users/create') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Users Add</p>
                             </a>
