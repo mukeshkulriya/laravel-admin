@@ -34,11 +34,21 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
                     @endif
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     <form action="{{ route('users.store') }}" method="POST">
                         @csrf
                         <div class="row">
@@ -62,6 +72,19 @@
                                     @endif
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="mobile">Nobile No.</label>
+                                    <input type="text" id="mobile" name="mobile" class="form-control"
+                                        value="{{ old('mobile') }}" />
+                                    @if ($errors->has('mobile'))
+                                        <div class="error">{{ $errors->first('mobile') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -108,13 +131,13 @@
                                     <label for="user_role">Role</label>
                                     <select class="form-control custom-select" name="user_role" id="user_role">
                                         <option selected disabled>Select one</option>
-                                        <option value="Admin"
-                                            {{ old('user_role') == 'Admin' ? 'selected="selected"' : '' }}>Admin</option>
-                                        <option value="Sub Admin"
-                                            {{ old('user_role') == 'Sub Admin' ? 'selected="selected"' : '' }}>Sub Admin
+                                        <option value="1" {{ old('user_role') == '1' ? 'selected="selected"' : '' }}>
+                                            Admin</option>
+                                        <option value="2" {{ old('user_role') == '2' ? 'selected="selected"' : '' }}>Sub
+                                            Admin
                                         </option>
-                                        <option value="Manager"
-                                            {{ old('user_role') == 'Manager' ? 'selected="selected"' : '' }}>Manager
+                                        <option value="3" {{ old('user_role') == '3' ? 'selected="selected"' : '' }}>
+                                            Manager
                                         </option>
                                     </select>
                                 </div>
