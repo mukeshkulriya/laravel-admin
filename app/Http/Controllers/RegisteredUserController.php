@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Exception;
 use Illuminate\Database\QueryException;
 use Log;
+use Illuminate\Support\Facades\DB;
 
 class RegisteredUserController extends Controller
 {
@@ -20,7 +21,8 @@ class RegisteredUserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $users = DB::table('registered_users')->get();
+        return view("admin.users.index", ['users' => $users]);
     }
 
     /**
@@ -44,37 +46,47 @@ class RegisteredUserController extends Controller
         // return $request->all();
 
         // die('end');
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|max:120',
             'email' => 'required|email|unique:registered_users',
             'user_role' => 'required',
             'mobile' => 'required|min:10|max:12',
             'password' => ['required', 'confirmed', Password::min(8)],
         ]);
-        try {
+        // $this->validate($request, [
+
+        // ]);
+        if ($validator->fails()) {
+            return redirect('admin/users/create')
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            try {
 
 
-            $student = new RegisteredUser();
-            $student->name = $request->input('name');
-            $student->gender = $request->input('gender');
-            $student->email = $request->input('email');
-            $student->mobile = $request->input('mobile');
-            $student->user_role = $request->input('user_role');
-            $student->password = Hash::make($request->password);
-            $student->save();
+                $student = new RegisteredUser();
+                $student->name = $request->input('name');
+                $student->gender = $request->input('gender');
+                $student->email = $request->input('email');
+                $student->mobile = $request->input('mobile');
+                $student->user_role = $request->input('user_role');
+                $student->password = Hash::make($request->password);
+                $student->save();
 
-            return back()->with('success', 'Data Submitted');
+                return back()->with('success', 'Data Submitted');
+            }
+            // catch (QueryException $e) {
+            //     $message = "Error";
+            //     //return response()->json($message, 500);
+            // }
+            //catch (Illuminate\Database\QueryException $e) {
+            //     dd($e);
+
+            catch (Exception $e) {
+                return back()->withErrors($e->getMessage())->withInput();
+            }
         }
-        // catch (QueryException $e) {
-        //     $message = "Error";
-        //     //return response()->json($message, 500);
-        // }
-        //catch (Illuminate\Database\QueryException $e) {
-        //     dd($e);
 
-        catch (Exception $e) {
-            return back()->withErrors($e->getMessage())->withInput();
-        }
 
         //
 
@@ -97,9 +109,11 @@ class RegisteredUserController extends Controller
      * @param  \App\Models\RegisteredUser  $registeredUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(RegisteredUser $registeredUser)
+    public function edit($id)
     {
         //
+        $users = RegisteredUser::find($id);
+        return view('admin.users.edit', compact('users'));
     }
 
     /**
@@ -109,9 +123,30 @@ class RegisteredUserController extends Controller
      * @param  \App\Models\RegisteredUser  $registeredUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RegisteredUser $registeredUser)
+    public function update(Request $request, $id)
     {
-        //
+        // $registeredUser->update($request->all());
+
+        // $registeredUser->update($request->all());
+
+        // return redirect()->route('admin.users.index')
+        //     ->with('success', 'Users updated successfully');
+        $student = RegisteredUser::findOrFail($id);
+
+        // $this->validate($request, [
+        //     'first_name' => 'required',
+        //     'last_name' => 'required',
+        //     'age' => 'required|numeric',
+        //     'email' => 'required|email',
+        // ]);
+
+        $input = $request->all();
+
+        $student->fill($input)->save();
+
+        return redirect()->route('users.index');
+        // return redirect()->back();
+        //dd($request);
     }
 
     /**
