@@ -77,6 +77,7 @@
                                 <th>Mobile</th>
                                 <th>Gender</th>
                                 <th>Date</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -84,13 +85,6 @@
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
-
-            <div class="row">
-                <div class="col-12">
-                    <a href="#" class="btn btn-secondary">Cancel</a>
-                    <input type="submit" value="Create new Porject" class="btn btn-success float-right">
-                </div>
-            </div>
         </section><!-- /.content -->
 
     </div><!-- /.content-wrapper -->

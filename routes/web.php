@@ -26,8 +26,10 @@ Route::get('admin/dashboard', [AdminController::class, 'index'])->name('dashboar
 Route::get('admin', function () {
     return redirect('/admin/dashboard');
 });
+
 // Route::resource('admin/users', 'RegisteredUserController', ['as' => 'adminUsers']);
 
 Route::prefix('admin/')->group(function () {
     Route::resource('users', 'RegisteredUserController');
+    Route::get('login', [AdminController::class, 'login'])->name('login');
 });

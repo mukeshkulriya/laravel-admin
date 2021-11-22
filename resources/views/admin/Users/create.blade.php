@@ -145,8 +145,8 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <a href="#" class="btn btn-secondary">Cancel</a>
-                                <input type="submit" value="Create new Porject" class="btn btn-success float-right">
+                                <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancel</a>
+                                <input type="submit" value="Add User" class="btn btn-success float-right">
                             </div>
                         </div>
                     </form>
