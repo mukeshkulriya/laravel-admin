@@ -33,3 +33,7 @@ Route::prefix('admin/')->group(function () {
     Route::resource('users', 'RegisteredUserController');
     Route::get('login', [AdminController::class, 'login'])->name('login');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
